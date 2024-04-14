@@ -32,7 +32,7 @@ type ApiSuite struct {
 func (as *ApiSuite) BeforeEach(t provider.T) {
 
 	t.NewStep("Загрузка конфигурации окружения")
-	cfg := config.MustLoad()
+	cfg := config.MustLoad(true)
 	//storagePath := "user=" + cfg.Db.Username + " password=hbdtkjy2012" + " dbname=" + cfg.Db.Dbname + " sslmode=disable"
 	storagePath := "postgres://" + cfg.Db.Username + ":" + os.Getenv("DB_PASSWORD") + "@" + cfg.Db.Host + ":" + cfg.Db.Port + "/" + cfg.Db.Dbname + "?sslmode=disable"
 	fmt.Println(storagePath)

@@ -21,8 +21,7 @@ import (
 func main() {
 
 	//загрузка конфига
-	cfg := config.MustLoad()
-	//storagePath := "user=" + cfg.Db.Username + " password=hbdtkjy2012" + " dbname=" + cfg.Db.Dbname + " sslmode=disable"
+	cfg := config.MustLoad(false)
 	storagePath := "postgres://" + cfg.Db.Username + ":" + os.Getenv("DB_PASSWORD") + "@" + cfg.Db.Host + ":" + cfg.Db.Port + "/" + cfg.Db.Dbname + "?sslmode=disable"
 	//инициализация БД
 	ctx := context.Background()

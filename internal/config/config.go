@@ -20,9 +20,14 @@ type Db struct {
 	Sslmode  string `yaml:"sslmode"`
 }
 
-func MustLoad() *Config {
-	//cfgName := "C:/Users/xzero/Desktop/other stuff/golang_projects/avito_backend_task_2023-main/internal/config/config.yaml"
-	cfgName := "./internal/config/config.yaml"
+func MustLoad(t bool) *Config {
+	var cfgName string
+	if t {
+		cfgName = "../internal/config/config.yaml"
+	} else {
+		cfgName = "./internal/config/config.yaml"
+	}
+
 	if _, err := os.Stat(cfgName); os.IsNotExist(err) {
 		log.Fatalf("config file does not exist:%s", cfgName)
 	}

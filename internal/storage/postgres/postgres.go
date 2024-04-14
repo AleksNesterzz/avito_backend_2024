@@ -35,7 +35,7 @@ func New(ctx context.Context, storagePath string) (*Storage, error) {
 	pgOnce.Do(func() {
 		db, err := pgxpool.New(ctx, storagePath)
 		if err != nil {
-			fmt.Errorf("unable to create connection pool: %s", err)
+			fmt.Println("unable to create connection pool:", err)
 			return
 		}
 		cache := make(map[models.Pair]models.Banner)

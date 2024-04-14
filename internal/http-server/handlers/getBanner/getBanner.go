@@ -9,11 +9,12 @@ import (
 	tokens "avito_backend/internal/lib"
 	apierr "avito_backend/internal/lib/errors"
 	models "avito_backend/internal/models"
+	"avito_backend/internal/storage"
 )
 
 type Response struct {
 	Banner  []models.Banner `json:"banners,omitempty"`
-	Message string          `json:"error,omitempty"`
+	Message string          `json:"message,omitempty"`
 }
 
 type BannerGetter interface {
@@ -58,10 +59,17 @@ func New(bannergetter BannerGetter) http.HandlerFunc {
 
 			banner, err := bannergetter.GetBanner(ctx, tid, fid, limit, offset)
 			if err != nil {
-				resp := Response{
-					Message: "failed to get user banners"}
-				responces.JSONResponse(w, r, 500, resp)
-				return
+				if err == storage.ErrBannerNotFound {
+					resp := Response{
+						Message: "Banner not found"}
+					responces.JSONResponse(w, r, 404, resp)
+					return
+				} else {
+					resp := Response{
+						Message: "failed to get user banners"}
+					responces.JSONResponse(w, r, 500, resp)
+					return
+				}
 			}
 			resp := Response{Banner: banner}
 			responces.JSONResponse(w, r, 200, resp)
