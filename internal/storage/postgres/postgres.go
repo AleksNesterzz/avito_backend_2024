@@ -143,7 +143,7 @@ func (s *Storage) GetUserBanner(ctx context.Context, tag, fid int, last bool) (*
 		if is_active {
 			return &banner, nil
 		} else {
-			return nil, nil
+			return nil, storage.ErrBannerNotFound
 		}
 	} else {
 		//запись из кэша

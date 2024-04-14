@@ -21,6 +21,7 @@ type Db struct {
 }
 
 func MustLoad(t bool) *Config {
+	//cfgName := "C:/Users/xzero/Desktop/other stuff/golang_projects/avito_backend_task_2023-main/internal/config/config.yaml"
 	var cfgName string
 	if t {
 		cfgName = "../internal/config/config.yaml"
