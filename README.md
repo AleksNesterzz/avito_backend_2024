@@ -9,7 +9,7 @@
 `docker build -t go-app . && docker compose up --build go-app`
 Приложение будет готово к использованию после вывода в консоль строки "Postgres is up - executing command"
 # Для запуска тестов  
- `docker-compose run go-app go test ./apitest`
+ `docker compose run go-app go test ./apitest`
 # Какие вопросы были
 1. Каким образом реализовать отправку данных с 5-минутной задержкой, если у пользователя нет флага last_revision?
    Сделал локальный кэш, который через горутину обновляется каждые 5 минут из БД (в идеале использовать Redis, но его изучить я не успел)
