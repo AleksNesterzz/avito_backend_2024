@@ -180,7 +180,7 @@ func (s *Storage) GetBanner(ctx context.Context, tag, fid, limit, offset *int) (
 
 	if fid != nil {
 		str_fid := strconv.Itoa(*fid)
-		str += "WHERE feature_id=" + str_fid
+		str += " WHERE feature_id=" + str_fid
 	}
 	str += " GROUP BY feature_id,banner_id, title, descr,url, created_at, updated_at, is_active"
 	if tag != nil {
@@ -206,11 +206,15 @@ func (s *Storage) GetBanner(ctx context.Context, tag, fid, limit, offset *int) (
 			rows.Scan(&temp.Tags, &temp.Fid, &temp.Bid, &temp.Cnt.Title, &temp.Cnt.Text, &temp.Cnt.URL, &temp.Created_at, &temp.Updated_at, &temp.Is_active)
 			banner = append(banner, temp)
 		}
-
 	}
 
 	defer rows.Close()
-	return banner, nil
+	if banner == nil {
+		return nil, storage.ErrBannerNotFound
+	} else {
+		return banner, nil
+	}
+
 }
 
 func (s *Storage) UpdateCache(ctx context.Context) error {

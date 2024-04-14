@@ -3,6 +3,7 @@ package apitest
 import (
 	"context"
 	"fmt"
+	"os"
 	"testing"
 
 	"avito_backend/internal/config"
@@ -32,8 +33,8 @@ func (as *ApiSuite) BeforeEach(t provider.T) {
 
 	t.NewStep("Загрузка конфигурации окружения")
 	cfg := config.MustLoad()
-	storagePath := "user=" + cfg.Db.Username + " password=hbdtkjy2012" + " dbname=" + cfg.Db.Dbname + " sslmode=disable"
-
+	//storagePath := "user=" + cfg.Db.Username + " password=hbdtkjy2012" + " dbname=" + cfg.Db.Dbname + " sslmode=disable"
+	storagePath := "postgres://" + cfg.Db.Username + ":" + os.Getenv("DB_PASSWORD") + "@" + cfg.Db.Host + ":" + cfg.Db.Port + "/" + cfg.Db.Dbname + "?sslmode=disable"
 	fmt.Println(storagePath)
 	var err error
 	t.NewStep("Проверка работы базы данных окружения")
