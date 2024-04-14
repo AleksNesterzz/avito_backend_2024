@@ -9,7 +9,7 @@
 `docker build -t go-app . && docker compose up --build go-app`
 Приложение будет готово к использованию после вывода в консоль строки "Postgres is up - executing command"
 # Для запуска тестов  
- `docker-compose run go-app go test ./apitest`
+ `docker compose run go-app go test ./apitest`
 # Что было сделано
 - При инициализации БД происходит создание одной пустой таблицы(banners)
 - 5 методов:
